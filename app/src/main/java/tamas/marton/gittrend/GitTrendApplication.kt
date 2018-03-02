@@ -2,6 +2,8 @@ package tamas.marton.gittrend
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
+import android.net.ConnectivityManager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
@@ -17,9 +19,12 @@ class GitTrendApplication  : Application(), HasActivityInjector {
 
     override fun onCreate() {
         super.onCreate()
+        val connectivityManager = getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
+
         DaggerAppComponent
                 .builder()
-                .appModule(NetworkModule())
+                .connectivityManager(connectivityManager)
+                .networkModule(NetworkModule(connectivityManager))
                 .build()
                 .inject(this)
     }

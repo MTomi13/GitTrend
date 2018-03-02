@@ -1,5 +1,6 @@
 package tamas.marton.gittrend.di
 
+import android.net.ConnectivityManager
 import dagger.BindsInstance
 import dagger.Component
 import dagger.android.AndroidInjectionModule
@@ -14,8 +15,8 @@ interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun appModule(networkModule: NetworkModule): Builder
-
+        fun connectivityManager(connectivityManager: ConnectivityManager): Builder
+        fun networkModule(networkModule: NetworkModule): Builder
         fun build(): AppComponent
     }
 

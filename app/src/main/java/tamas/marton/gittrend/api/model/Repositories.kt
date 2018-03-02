@@ -3,7 +3,7 @@ package tamas.marton.gittrend.api.model
 import com.google.gson.annotations.SerializedName
 
 
-data class Repository(
+data class Repositories(
 
         @SerializedName("total_count")
         var totalCount: Int,

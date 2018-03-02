@@ -15,14 +15,14 @@ import javax.inject.Singleton
 
 
 @Module
-class NetworkModule {
+class NetworkModule(val connectivityManager: ConnectivityManager) {
 
     private val TIMEOUT: Long = 5000
     private val BASE_URL: String = "https://api.github.com"
 
     @Provides
     @Singleton
-    fun noConnectionInterceptor(connectivityManager: ConnectivityManager): NoConnectionInterceptor {
+    fun noConnectionInterceptor(): NoConnectionInterceptor {
         return NoConnectionInterceptor(connectivityManager)
     }
 
