@@ -12,7 +12,6 @@ ext {
 
     //network
     retrofitVersion = "2.3.0"
-    retrofitConverterVersion = "2.3.0"
     okhttpVersion = "3.9.0"
 
     //leakCanary
@@ -30,6 +29,13 @@ ext {
     //kotlin
     kotlin_version = "1.2.30"
 
+    //dagger
+    daggerVersion = "2.14.1"
+
+    //RX
+    rxAndroidVersion = "2.0.1"
+    rxJavaVersion = "2.1.7"
+
     libraries = [
             androidSupport          : "com.android.support:support-v4:${androidSupportVersion}",
             androidSupportAnnotation: "com.android.support:support-annotations:${androidSupportVersion}",
@@ -39,6 +45,7 @@ ext {
             cardview                : "com.android.support:cardview-v7:${androidSupportVersion}",
             retrofit                : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
             retrofitconverter       : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            retrofitRxAdapter       : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVersion}",
             okhttp                  : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
             okhttplogginginterceptor: "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
             okhttpurlconnection     : "com.squareup.okhttp3:okhttp-urlconnection:${okhttpVersion}",
@@ -46,6 +53,12 @@ ext {
             leakCanaryNoOp          : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
             gson                    : "com.google.code.gson:gson:${gsonVersion}",
             kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}",
+            dagger                  : "com.google.dagger:dagger:${daggerVersion}",
+            daggerAndroidSupport    : "com.google.dagger:dagger-android-support:${daggerVersion}",
+            daggerCompiler          : "com.google.dagger:dagger-compiler:${daggerVersion}",
+            daggerProcessor         : "com.google.dagger:dagger-android-processor:${daggerVersion}",
+            rxjava                  : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
+            rxandroid               : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
     ]
 
     testLibraries = [
