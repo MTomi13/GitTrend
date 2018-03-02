@@ -1,0 +1,31 @@
+dependencies {
+
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation rootProject.ext.libraries.appCompat
+    implementation rootProject.ext.libraries.recyclerView
+    implementation rootProject.ext.libraries.constraintLayout
+    implementation rootProject.ext.libraries.cardview
+
+    //Network
+    implementation rootProject.ext.libraries.retrofit
+    implementation rootProject.ext.libraries.retrofitconverter
+    implementation rootProject.ext.libraries.okhttp
+    implementation rootProject.ext.libraries.okhttplogginginterceptor
+    implementation rootProject.ext.libraries.okhttpurlconnection
+
+    //Gson
+    implementation rootProject.ext.libraries.gson
+
+    //Test
+    testImplementation rootProject.ext.testLibraries.mockito
+    testImplementation rootProject.ext.testLibraries.robolectric
+    testImplementation rootProject.ext.testLibraries.robolectricSharowsMultidex
+    testImplementation rootProject.ext.testLibraries.junit
+    //On debug
+    debugImplementation rootProject.ext.libraries.leakCanary
+    releaseImplementation rootProject.ext.libraries.leakCanaryNoOp
+
+    //kotlin
+    implementation rootProject.ext.libraries.kotlin
+}

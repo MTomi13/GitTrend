@@ -1,0 +1,58 @@
+ext {
+    gradleBuildTools = "3.1.0-alpha01"
+
+    //android
+    minSdkVersion = 15
+    compileSdkVersion = 27
+    buildToolsVersion = "27.0.3"
+
+    //Android
+    androidSupportVersion = "27.0.2"
+    androidConstraintLayoutVersion = "1.0.2"
+
+    //network
+    retrofitVersion = "2.3.0"
+    retrofitConverterVersion = "2.3.0"
+    okhttpVersion = "3.9.0"
+
+    //leakCanary
+    leakCanaryVersion = "1.5.3"
+    //Gson
+    gsonVersion = "2.8.2"
+
+    //TestLibraries
+    androidTestRunnerVersion = "1.0.1"
+    mockitoVersion = "2.12.0"
+    junitVersion = "4.12"
+    robolectricVersion = "3.6.1"
+    robolectricShadowMultidex = "3.6.1"
+
+    //kotlin
+    kotlin_version = "1.2.30"
+
+    libraries = [
+            androidSupport          : "com.android.support:support-v4:${androidSupportVersion}",
+            androidSupportAnnotation: "com.android.support:support-annotations:${androidSupportVersion}",
+            appCompat               : "com.android.support:appcompat-v7:${androidSupportVersion}",
+            constraintLayout        : "com.android.support.constraint:constraint-layout:${androidConstraintLayoutVersion}",
+            recyclerView            : "com.android.support:recyclerview-v7:${androidSupportVersion}",
+            cardview                : "com.android.support:cardview-v7:${androidSupportVersion}",
+            retrofit                : "com.squareup.retrofit2:retrofit:${retrofitVersion}",
+            retrofitconverter       : "com.squareup.retrofit2:converter-gson:${retrofitVersion}",
+            okhttp                  : "com.squareup.okhttp3:okhttp:${okhttpVersion}",
+            okhttplogginginterceptor: "com.squareup.okhttp3:logging-interceptor:${okhttpVersion}",
+            okhttpurlconnection     : "com.squareup.okhttp3:okhttp-urlconnection:${okhttpVersion}",
+            leakCanary              : "com.squareup.leakcanary:leakcanary-android:${leakCanaryVersion}",
+            leakCanaryNoOp          : "com.squareup.leakcanary:leakcanary-android-no-op:${leakCanaryVersion}",
+            gson                    : "com.google.code.gson:gson:${gsonVersion}",
+            kotlin                  : "org.jetbrains.kotlin:kotlin-stdlib-jre8:${kotlin_version}",
+    ]
+
+    testLibraries = [
+            testRunner                : "com.android.support.test:runner:${androidTestRunnerVersion}",
+            mockito                   : "org.mockito:mockito-core:${mockitoVersion}",
+            robolectric               : "org.robolectric:robolectric:${robolectricVersion}",
+            robolectricSharowsMultidex: "org.robolectric:shadows-multidex:${robolectricShadowMultidex}",
+            junit                     : "junit:junit:${junitVersion}",
+    ]
+}
