@@ -9,7 +9,7 @@ import javax.inject.Singleton
 
 
 @Singleton
-@Component(modules = [(AndroidInjectionModule::class), (NetworkModule::class), (ActivityBuilder::class)])
+@Component(modules = [(AndroidInjectionModule::class), (NetworkModule::class), (RoomModule::class), (ActivityBuilder::class)])
 interface AppComponent {
 
     @Component.Builder
@@ -17,6 +17,7 @@ interface AppComponent {
         @BindsInstance
         fun connectivityManager(connectivityManager: ConnectivityManager): Builder
         fun networkModule(networkModule: NetworkModule): Builder
+        fun roomModule(roomModule: RoomModule): Builder
         fun build(): AppComponent
     }
 

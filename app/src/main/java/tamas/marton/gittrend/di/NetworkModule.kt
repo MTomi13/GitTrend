@@ -3,6 +3,7 @@ package tamas.marton.gittrend.di
 import android.net.ConnectivityManager
 import dagger.Module
 import dagger.Provides
+import io.reactivex.disposables.CompositeDisposable
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -15,7 +16,7 @@ import javax.inject.Singleton
 
 
 @Module
-class NetworkModule(val connectivityManager: ConnectivityManager) {
+class NetworkModule(private val connectivityManager: ConnectivityManager) {
 
     private val TIMEOUT: Long = 5000
     private val BASE_URL: String = "https://api.github.com"
@@ -51,4 +52,9 @@ class NetworkModule(val connectivityManager: ConnectivityManager) {
     @Singleton
     @Provides
     fun apiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
+
+    @Provides
+    fun getCompositeDisposable(): CompositeDisposable {
+        return CompositeDisposable()
+    }
 }

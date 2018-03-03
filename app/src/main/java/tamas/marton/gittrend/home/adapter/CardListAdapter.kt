@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
+import com.bumptech.glide.request.RequestOptions
 import com.bumptech.glide.request.target.BitmapImageViewTarget
 import kotlinx.android.synthetic.main.list_item.view.*
 import tamas.marton.gittrend.R
@@ -34,13 +35,9 @@ class CardListAdapter : RecyclerView.Adapter<CardListAdapter.CardViewHolder>() {
                 full_name_text.text = fullName
                 updated_text.text = lastUpdated
 
-                Glide.with(context).load(avatarUrl).asBitmap().centerCrop().into(object : BitmapImageViewTarget(avatar_image) {
-                    override fun setResource(resource: Bitmap) {
-                        val circularBitmapDrawable = RoundedBitmapDrawableFactory.create(context.resources, resource)
-                        circularBitmapDrawable.isCircular = true
-                        avatar_image.setImageDrawable(circularBitmapDrawable)
-                    }
-                })
+                Glide.with(context)
+                        .load(avatarUrl)
+                        .apply(RequestOptions.circleCropTransform()).into(avatar_image)
 
                 setOnClickListener {
                     // TODO: Handle on click

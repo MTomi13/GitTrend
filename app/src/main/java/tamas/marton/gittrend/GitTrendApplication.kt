@@ -7,12 +7,13 @@ import android.net.ConnectivityManager
 import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.HasActivityInjector
-import tamas.marton.gittrend.di.NetworkModule
 import tamas.marton.gittrend.di.DaggerAppComponent
+import tamas.marton.gittrend.di.NetworkModule
+import tamas.marton.gittrend.di.RoomModule
 import javax.inject.Inject
 
 
-class GitTrendApplication  : Application(), HasActivityInjector {
+class GitTrendApplication : Application(), HasActivityInjector {
 
     @Inject
     lateinit var activityDispatchingAndroidInjector: DispatchingAndroidInjector<Activity>
@@ -25,6 +26,7 @@ class GitTrendApplication  : Application(), HasActivityInjector {
                 .builder()
                 .connectivityManager(connectivityManager)
                 .networkModule(NetworkModule(connectivityManager))
+                .roomModule(RoomModule(this))
                 .build()
                 .inject(this)
     }

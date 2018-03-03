@@ -42,5 +42,15 @@ dependencies {
 
     //Glide
     implementation rootProject.ext.libraries.glide
-//    kapt rootProject.ext.libraries.glideCompiler
+    kapt rootProject.ext.libraries.glideCompiler
+
+    //room
+    implementation rootProject.ext.libraries.room
+    kapt rootProject.ext.libraries.roomCompiler
+    androidTestImplementation rootProject.ext.testLibraries.roomTesting
+
+    //lifecycle
+    implementation rootProject.ext.libraries.lifecycleRuntime
+    implementation rootProject.ext.libraries.lifecycleExtension
+    kapt rootProject.ext.libraries.lifecycleCompiler
 }
