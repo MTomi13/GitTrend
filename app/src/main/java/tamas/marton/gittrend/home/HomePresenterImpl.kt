@@ -34,8 +34,8 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
         Log.e("aa", "aa")
     }
 
-    override fun mapEntity(repositoriesEntity: RepositoriesEntity?) {
-        repositoriesEntity?.let {
+    override fun mapEntity(repositoriesEntity: RepositoriesEntity) {
+        repositoriesEntity.let {
             if (it.repositories.items.isNotEmpty()) {
                 val list = CardMapper().map(it.repositories)
                 homeView.setList(list)

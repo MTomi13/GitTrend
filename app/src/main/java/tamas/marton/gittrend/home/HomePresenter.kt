@@ -6,7 +6,7 @@ import tamas.marton.gittrend.db.RepositoriesEntity
 
 interface HomePresenter : BasePresenter {
 
-    fun mapEntity(repositoriesEntity: RepositoriesEntity?)
+    fun mapEntity(repositoriesEntity: RepositoriesEntity)
 
     fun getBestRepositories()
 }
