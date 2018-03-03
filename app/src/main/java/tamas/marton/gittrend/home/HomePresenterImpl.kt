@@ -19,9 +19,20 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
         homeInteractor.getRepositories()
 
         compositeDisposable.add(homeInteractor.getRepositories()
+                .map { result -> UIStateModel.success(result) }
+                .onErrorReturn { exception -> UIStateModel.error(exception) }
+                .startWith(UIStateModel.loading())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe({ this.onGetRepositoriesSuccess(repositories = it) }) { this.onGetRepositoriesFailure(e = it) })
+                .subscribe({ uiState ->
+                    when {
+                        uiState.isLoading() -> homeView.showLoading()
+                        uiState.isError() -> onGetRepositoriesFailure(uiState.getError())
+                        uiState.isSuccess() -> onGetRepositoriesSuccess(uiState.getRepositories())
+                        uiState.isEmpty() -> onGetRepositoriesEmpty()
+                        else -> IllegalArgumentException("Invalid Response")
+                    }
+                }))
     }
 
     private fun onGetRepositoriesSuccess(repositories: Repositories) {
@@ -31,15 +42,20 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
     }
 
     private fun onGetRepositoriesFailure(e: Throwable?) {
+        homeView.hideProgressBar()
         Log.e("aa", "aa")
     }
 
+    private fun onGetRepositoriesEmpty() {
+        homeView.hideProgressBar()
+        Log.e("bb", "bb")
+    }
+
+
     override fun mapEntity(repositoriesEntity: RepositoriesEntity) {
         repositoriesEntity.let {
-            if (it.repositories.items.isNotEmpty()) {
-                val list = CardMapper().map(it.repositories)
-                homeView.setList(list)
-            }
+            val list = CardMapper().map(it.repositories)
+            homeView.setList(list)
         }
     }
 

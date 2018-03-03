@@ -10,4 +10,6 @@ interface HomeView : BaseView {
     fun setList(list: List<CardUIModel>)
 
     fun saveData(repositories: Repositories)
+
+    fun showLoading()
 }

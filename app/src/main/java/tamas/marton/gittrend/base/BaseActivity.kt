@@ -1,18 +1,31 @@
 package tamas.marton.gittrend.base
 
+import android.os.Bundle
+import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
+import android.view.View
+import tamas.marton.gittrend.R
 
 
 abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseView {
 
-   abstract var presenter : P
+    private val progressBar: ConstraintLayout by lazy { findViewById<ConstraintLayout>(R.id.progress_bar) }
+
+    abstract var presenter: P
+
+    protected abstract fun getContentView(): Int
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(getContentView())
+    }
 
     override fun showProgressBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.visibility = View.VISIBLE
     }
 
     override fun hideProgressBar() {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        progressBar.visibility = View.GONE
     }
 
     override fun onError(message: String) {

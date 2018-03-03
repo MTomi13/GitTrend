@@ -22,10 +22,6 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
 
     private val LAYOUT_MANAGER_STATE = "layout_manager_state"
 
-    override var presenter: HomePresenter
-        get() = homePresenter
-        set(value) {}
-
     @Inject
     lateinit var homePresenter: HomePresenter
     @Inject
@@ -38,11 +34,15 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
     private var homeViewModel: HomeViewModel? = null
     private var state: Parcelable? = null
 
+    override fun getContentView(): Int = R.layout.activity_home
+
+    override var presenter: HomePresenter
+        get() = homePresenter
+        set(value) {}
+
     override fun onCreate(savedInstanceState: Bundle?) {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_home)
-
 
         if (savedInstanceState != null) {
             state = savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE)
@@ -82,10 +82,17 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
         runOnUiThread {
             adapter.cards = list
             adapter.notifyDataSetChanged()
+            hideProgressBar()
             swipe_refresh_layout.isRefreshing = false
             if (state != null) {
                 linearLayoutManager.onRestoreInstanceState(state)
             }
+        }
+    }
+
+    override fun showLoading() {
+        if (linearLayoutManager.itemCount == 0) {
+            showProgressBar()
         }
     }
 }
