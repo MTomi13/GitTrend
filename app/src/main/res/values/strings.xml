@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">GitTrend</string>
+    <string name="card_image_description">avatar</string>
+    <string name="last_updated">Last Updated:</string>
 </resources>

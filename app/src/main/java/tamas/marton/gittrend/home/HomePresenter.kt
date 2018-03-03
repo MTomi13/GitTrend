@@ -1,6 +1,6 @@
 package tamas.marton.gittrend.home
 
-import tamas.marton.gittrend.BasePresenter
+import tamas.marton.gittrend.base.BasePresenter
 
 
 interface HomePresenter : BasePresenter {

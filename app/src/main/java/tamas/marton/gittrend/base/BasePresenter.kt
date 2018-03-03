@@ -1,4 +1,4 @@
-package tamas.marton.gittrend
+package tamas.marton.gittrend.base
 
 
 interface BasePresenter {

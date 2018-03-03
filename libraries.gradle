@@ -2,7 +2,7 @@ ext {
     gradleBuildTools = "3.1.0-alpha01"
 
     //android
-    minSdkVersion = 15
+    minSdkVersion = 17
     compileSdkVersion = 27
     buildToolsVersion = "27.0.3"
 
@@ -18,6 +18,8 @@ ext {
     leakCanaryVersion = "1.5.3"
     //Gson
     gsonVersion = "2.8.2"
+    //Glide
+    glideVersion = "3.7.0"
 
     //TestLibraries
     androidTestRunnerVersion = "1.0.1"
@@ -58,7 +60,9 @@ ext {
             daggerCompiler          : "com.google.dagger:dagger-compiler:${daggerVersion}",
             daggerProcessor         : "com.google.dagger:dagger-android-processor:${daggerVersion}",
             rxjava                  : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
-            rxandroid               : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}"
+            rxandroid               : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
+            glide                   : "com.github.bumptech.glide:glide:${glideVersion}",
+            glideCompiler           : "com.github.bumptech.glide:compiler:${glideVersion}"
     ]
 
     testLibraries = [
