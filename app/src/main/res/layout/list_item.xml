@@ -72,6 +72,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/dimen_8"
             android:layout_marginEnd="@dimen/dimen_16"
+            android:layout_marginStart="@dimen/dimen_4"
             android:lineSpacingExtra="@dimen/dimen_8"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textColor="#DE000000"
