@@ -2,7 +2,7 @@ ext {
     gradleBuildTools = "3.1.0-alpha01"
 
     //android
-    minSdkVersion = 17
+    minSdkVersion = 21
     compileSdkVersion = 27
     buildToolsVersion = "27.0.3"
 
@@ -46,6 +46,7 @@ ext {
             androidSupport          : "com.android.support:support-v4:${androidSupportVersion}",
             androidSupportAnnotation: "com.android.support:support-annotations:${androidSupportVersion}",
             appCompat               : "com.android.support:appcompat-v7:${androidSupportVersion}",
+            design                  : "com.android.support:design:${androidSupportVersion}",
             constraintLayout        : "com.android.support.constraint:constraint-layout:${androidConstraintLayoutVersion}",
             recyclerView            : "com.android.support:recyclerview-v7:${androidSupportVersion}",
             cardview                : "com.android.support:cardview-v7:${androidSupportVersion}",

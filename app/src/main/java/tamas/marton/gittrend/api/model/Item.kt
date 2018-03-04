@@ -44,7 +44,7 @@ data class Item(
         @SerializedName("watchers_count")
         var watchersCount: Int,
 
-        var language: String,
+        var language: String?,
 
         @SerializedName("forks_count")
         var forksCount: Int,

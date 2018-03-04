@@ -9,5 +9,5 @@ import javax.inject.Inject
 class HomeInteractorImpl @Inject constructor(private val apiService: ApiService) : HomeInteractor {
 
     override fun getRepositories(): Observable<Repositories> =
-            apiService.getRepositories("language:java", "stars", "desc")
+            apiService.getRepositories("is:public", "stars", "desc")
 }

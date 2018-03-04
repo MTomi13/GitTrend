@@ -6,6 +6,7 @@ dependencies {
     implementation rootProject.ext.libraries.recyclerView
     implementation rootProject.ext.libraries.constraintLayout
     implementation rootProject.ext.libraries.cardview
+    implementation rootProject.ext.libraries.design
 
     //Network
     implementation rootProject.ext.libraries.retrofit

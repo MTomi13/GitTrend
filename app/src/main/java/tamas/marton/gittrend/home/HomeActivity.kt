@@ -2,23 +2,31 @@ package tamas.marton.gittrend.home
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
+import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
+import android.support.v4.app.ActivityOptionsCompat
 import android.support.v7.widget.LinearLayoutManager
+import android.view.View
+import android.widget.ImageView
 import dagger.android.AndroidInjection
 import kotlinx.android.synthetic.main.activity_home.*
+import tamas.marton.gittrend.DETAILS_INTENT
 import tamas.marton.gittrend.R
 import tamas.marton.gittrend.api.model.Repositories
 import tamas.marton.gittrend.base.BaseActivity
 import tamas.marton.gittrend.base.ViewModelFactory
 import tamas.marton.gittrend.db.RepositoriesEntity
+import tamas.marton.gittrend.details.DetailsActivity
+import tamas.marton.gittrend.details.DetailsUIModel
+import tamas.marton.gittrend.home.adapter.CardClickListener
 import tamas.marton.gittrend.home.adapter.CardListAdapter
 import tamas.marton.gittrend.home.adapter.CardUIModel
 import tamas.marton.gittrend.ioThread
 import javax.inject.Inject
 
 
-class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
+class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener {
 
     private val LAYOUT_MANAGER_STATE = "layout_manager_state"
 
@@ -47,6 +55,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
         if (savedInstanceState != null) {
             state = savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE)
         }
+        adapter.cardClickListener = this
         recyclerView.adapter = adapter
         recyclerView.layoutManager = linearLayoutManager
 
@@ -94,5 +103,13 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView {
         if (linearLayoutManager.itemCount == 0) {
             showProgressBar()
         }
+    }
+
+    override fun onCardClick(detailsUIModel: DetailsUIModel, view: View) {
+        val intent = Intent(this, DetailsActivity::class.java)
+        intent.putExtra(DETAILS_INTENT, detailsUIModel)
+        val sharedImage = view.findViewById<ImageView>(R.id.avatar_image)
+        val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedImage, getString(R.string.shared_element_key))
+        startActivity(intent, options.toBundle())
     }
 }

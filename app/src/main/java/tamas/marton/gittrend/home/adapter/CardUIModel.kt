@@ -1,5 +1,7 @@
 package tamas.marton.gittrend.home.adapter
 
+import tamas.marton.gittrend.details.DetailsUIModel
+
 
 data class CardUIModel(
 
@@ -11,5 +13,7 @@ data class CardUIModel(
 
         var avatarUrl: String,
 
-        var lastUpdated: String
+        var lastUpdated: String,
+
+        var details: DetailsUIModel
 )
