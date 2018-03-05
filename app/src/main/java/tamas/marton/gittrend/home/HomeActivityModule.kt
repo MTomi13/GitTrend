@@ -7,6 +7,7 @@ import dagger.Provides
 import tamas.marton.gittrend.base.ViewModelFactory
 import tamas.marton.gittrend.db.RepositoriesDao
 import tamas.marton.gittrend.home.adapter.CardListAdapter
+import tamas.marton.gittrend.home.adapter.CardMapper
 import javax.inject.Singleton
 
 
@@ -16,6 +17,11 @@ class HomeActivityModule {
     @Provides
     fun provideView(homeActivity: HomeActivity): HomeView {
         return homeActivity
+    }
+
+    @Provides
+    fun provideCardMapper(): CardMapper {
+        return CardMapper()
     }
 
     @Provides

@@ -12,4 +12,6 @@ interface HomeView : BaseView {
     fun saveData(repositories: Repositories)
 
     fun showLoading()
+
+    fun hideSwipeRefreshLoader()
 }

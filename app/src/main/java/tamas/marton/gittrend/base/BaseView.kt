@@ -7,5 +7,5 @@ interface BaseView {
 
     fun hideProgressBar()
 
-    fun onError(message: String)
+    fun onError(message: String?)
 }

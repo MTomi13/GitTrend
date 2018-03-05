@@ -1,16 +1,19 @@
 package tamas.marton.gittrend.home
 
-import android.util.Log
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
+import tamas.marton.gittrend.api.EmptyResultException
 import tamas.marton.gittrend.api.model.Repositories
 import tamas.marton.gittrend.db.RepositoriesEntity
 import tamas.marton.gittrend.home.adapter.CardMapper
 import javax.inject.Inject
 
 
-class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInteractor, private val homeView: HomeView) : HomePresenter {
+class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInteractor,
+                                            private val cardMapper: CardMapper,
+                                            private val homeView: HomeView)
+    : HomePresenter {
 
     @Inject
     lateinit var compositeDisposable: CompositeDisposable
@@ -37,24 +40,26 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
 
     private fun onGetRepositoriesSuccess(repositories: Repositories) {
         homeView.saveData(repositories)
-        Log.e("ee", "ee")
-
     }
 
-    private fun onGetRepositoriesFailure(e: Throwable?) {
-        homeView.hideProgressBar()
-        Log.e("aa", "aa")
+    private fun onGetRepositoriesFailure(error: Throwable) {
+        handleErrors()
+        homeView.onError(error.message)
     }
 
     private fun onGetRepositoriesEmpty() {
-        homeView.hideProgressBar()
-        Log.e("bb", "bb")
+        handleErrors()
+        homeView.onError(EmptyResultException().message)
     }
 
+    private fun handleErrors() {
+        homeView.hideProgressBar()
+        homeView.hideSwipeRefreshLoader()
+    }
 
     override fun mapEntity(repositoriesEntity: RepositoriesEntity) {
         repositoriesEntity.let {
-            val list = CardMapper().map(it.repositories)
+            val list = cardMapper.map(it.repositories)
             homeView.setList(list)
         }
     }

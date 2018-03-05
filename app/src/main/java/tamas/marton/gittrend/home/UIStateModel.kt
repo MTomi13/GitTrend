@@ -23,13 +23,13 @@ data class UIStateModel private constructor(
         if (error != null) {
             return error
         }
-        throw IllegalStateException("error shouldn't be null")
+        throw IllegalStateException("Error shouldn't be null")
     }
 
     fun getRepositories(): Repositories {
         if (repositories != null) {
             return repositories
         }
-        throw IllegalStateException("dataModel shouldn't be null")
+        throw IllegalStateException("Repositories shouldn't be null")
     }
 }

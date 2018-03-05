@@ -4,6 +4,8 @@ import android.os.Bundle
 import android.support.constraint.ConstraintLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.View
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_details.*
 import tamas.marton.gittrend.R
 
 
@@ -28,8 +30,13 @@ abstract class BaseActivity<P : BasePresenter> : AppCompatActivity(), BaseView {
         progressBar.visibility = View.GONE
     }
 
-    override fun onError(message: String) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun onError(message: String?) {
+        var errorMessage = message
+        if (errorMessage == null) {
+            errorMessage = getString(R.string.default_error)
+        }
+        errorMessage = String.format(resources.getString(R.string.error_message), errorMessage)
+        Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
     }
 
     override fun onDestroy() {

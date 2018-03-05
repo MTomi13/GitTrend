@@ -92,11 +92,15 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
             adapter.cards = list
             adapter.notifyDataSetChanged()
             hideProgressBar()
-            swipe_refresh_layout.isRefreshing = false
+            hideSwipeRefreshLoader()
             if (state != null) {
                 linearLayoutManager.onRestoreInstanceState(state)
             }
         }
+    }
+
+    override fun hideSwipeRefreshLoader() {
+        swipe_refresh_layout.isRefreshing = false
     }
 
     override fun showLoading() {
