@@ -1,5 +1,6 @@
 package tamas.marton.gittrend.home.adapter
 
+import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
@@ -12,7 +13,13 @@ import tamas.marton.gittrend.inflate
 
 class CardListAdapter : RecyclerView.Adapter<CardListAdapter.CardViewHolder>() {
 
-    var cards: List<CardUIModel> = listOf()
+    private var cards: List<CardUIModel> = listOf()
+
+    fun updateList(newCards: List<CardUIModel>) {
+        val diffResult = DiffUtil.calculateDiff(CardDiffsUtilCallback(cards, newCards))
+        cards = newCards
+        diffResult.dispatchUpdatesTo(this)
+    }
 
     lateinit var cardClickListener: CardClickListener
 

@@ -89,8 +89,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
 
     override fun setList(list: List<CardUIModel>) {
         runOnUiThread {
-            adapter.cards = list
-            adapter.notifyDataSetChanged()
+            adapter.updateList(list)
             hideProgressBar()
             hideSwipeRefreshLoader()
             if (state != null) {
