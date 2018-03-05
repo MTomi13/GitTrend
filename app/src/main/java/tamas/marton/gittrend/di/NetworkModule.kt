@@ -59,9 +59,4 @@ class NetworkModule(private val connectivityManager: ConnectivityManager) {
     fun getCompositeDisposable(): CompositeDisposable {
         return CompositeDisposable()
     }
-
-    @Provides
-    fun provideScheduler(): SchedulerProvider {
-        return SchedulerProviderImpl()
-    }
 }

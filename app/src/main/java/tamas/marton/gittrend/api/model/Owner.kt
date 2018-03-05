@@ -1,5 +1,6 @@
 package tamas.marton.gittrend.api.model
 
+import android.arch.persistence.room.Ignore
 import com.google.gson.annotations.SerializedName
 
 
@@ -21,4 +22,8 @@ data class Owner(
         var receivedEventsUrl: String,
 
         var type: String
-)
+) {
+
+    @Ignore
+    constructor() : this("", 0, "", "", "", "", "")
+}

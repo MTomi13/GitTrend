@@ -4,7 +4,6 @@ import io.reactivex.disposables.CompositeDisposable
 import tamas.marton.gittrend.api.EmptyResultException
 import tamas.marton.gittrend.api.model.Repositories
 import tamas.marton.gittrend.api.schedulers.SchedulerProvider
-import tamas.marton.gittrend.api.schedulers.SchedulerProviderImpl
 import tamas.marton.gittrend.db.RepositoriesEntity
 import tamas.marton.gittrend.home.adapter.CardMapper
 import javax.inject.Inject
@@ -12,18 +11,14 @@ import javax.inject.Inject
 
 class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInteractor,
                                             private val cardMapper: CardMapper,
+                                            private val scheduler: SchedulerProvider,
                                             private val homeView: HomeView)
     : HomePresenter {
 
     @Inject
     lateinit var compositeDisposable: CompositeDisposable
 
-    @Inject
-    lateinit var scheduler: SchedulerProvider
-
     override fun getBestRepositories() {
-        homeInteractor.getRepositories()
-
         compositeDisposable.add(homeInteractor.getRepositories()
                 .map { result -> UIStateModel.success(result) }
                 .onErrorReturn { exception -> UIStateModel.error(exception) }
