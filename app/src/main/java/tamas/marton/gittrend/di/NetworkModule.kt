@@ -11,6 +11,8 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
 import tamas.marton.gittrend.api.ApiService
 import tamas.marton.gittrend.api.NoConnectionInterceptor
+import tamas.marton.gittrend.api.schedulers.SchedulerProvider
+import tamas.marton.gittrend.api.schedulers.SchedulerProviderImpl
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
@@ -56,5 +58,10 @@ class NetworkModule(private val connectivityManager: ConnectivityManager) {
     @Provides
     fun getCompositeDisposable(): CompositeDisposable {
         return CompositeDisposable()
+    }
+
+    @Provides
+    fun provideScheduler(): SchedulerProvider {
+        return SchedulerProviderImpl()
     }
 }
