@@ -33,7 +33,8 @@ class CardListAdapter : RecyclerView.Adapter<CardListAdapter.CardViewHolder>() {
             with(item) {
                 name_text.text = name
                 full_name_text.text = fullName
-                updated_text.text = lastUpdated
+                val updatedString = String.format(resources.getString(R.string.update_format), lastUpdated)
+                updated_text.text = updatedString
 
                 Glide.with(context)
                         .load(avatarUrl)

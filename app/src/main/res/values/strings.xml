@@ -4,8 +4,13 @@
     <string name="last_updated">Last Updated:</string>
 
     <string name="create_format">Created at:  %1$s</string>
+    <string name="error_message">%1$s\n Try swipe to refresh the screen.</string>
     <string name="update_format">Last updated at:  %1$s</string>
     <string name="collapsing_image">collapsing_image</string>
     <string name="avatar_details_image">avatar_details_image</string>
     <string name="shared_element_key">avatar</string>
+    <string name="default_error">Something went wrong! Please try again later.</string>
+    <string name="details_watcher_icon">details_watcher_icon</string>
+    <string name="details_star_icon">details_star_icon</string>
+    <string name="details_fork_icon">details_fork_icon</string>
 </resources>

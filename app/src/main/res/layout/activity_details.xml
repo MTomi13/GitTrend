@@ -33,8 +33,7 @@
                 android:id="@+id/details_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="?android:attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:titleTextColor="@android:color/white" />
+                app:layout_collapseMode="pin" />
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
@@ -51,70 +50,39 @@
 
             <ImageView
                 android:id="@+id/avatar_details_image"
-                android:layout_width="@dimen/dimen_60"
-                android:layout_height="@dimen/dimen_60"
-                android:layout_margin="@dimen/dimen_40"
+                style="@style/DetailsAvatar"
                 android:contentDescription="@string/avatar_details_image"
-                android:paddingBottom="@dimen/dimen_8"
-                android:paddingTop="@dimen/dimen_8"
-                android:transitionName="@string/shared_element_key"
                 app:layout_constraintBottom_toTopOf="@+id/description_text"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
                 android:id="@+id/language_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_8"
-                android:paddingEnd="@dimen/dimen_16"
-                android:paddingStart="@dimen/dimen_16"
-                android:paddingTop="@dimen/dimen_8"
-                android:textAppearance="@style/TextAppearance.AppCompat.Headline"
-                android:textColor="#DE000000"
+                style="@style/DetailsLanguageText"
                 tools:text="Java" />
 
             <TextView
                 android:id="@+id/description_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_60"
-                android:paddingEnd="@dimen/dimen_16"
-                android:paddingStart="@dimen/dimen_16"
-                android:singleLine="false"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-                android:textColor="#8A000000"
+                style="@style/DetailsDescriptionText"
                 app:layout_constraintTop_toBottomOf="@+id/avatar_details_image"
                 tools:text="description " />
 
             <TextView
                 android:id="@+id/created_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingEnd="@dimen/dimen_16"
-                android:paddingStart="@dimen/dimen_16"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#DE000000"
+                style="@style/DetailsCreatedText"
                 app:layout_constraintTop_toBottomOf="@+id/description_text"
                 tools:text="Created: 2017.03.13 21:33:02" />
 
             <TextView
                 android:id="@+id/last_updated_text"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_16"
-                android:paddingEnd="@dimen/dimen_16"
-                android:paddingStart="@dimen/dimen_16"
-                android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                android:textColor="#DE000000"
+                style="@style/DetailsLastUpdatedText"
                 app:layout_constraintTop_toBottomOf="@+id/created_text"
                 tools:text="Last Updated: 201.03.13 21:33:02" />
 
             <ImageView
                 android:id="@+id/watcher_icon"
-                android:layout_width="@dimen/dimen_40"
-                android:layout_height="@dimen/dimen_40"
-                android:scaleType="centerCrop"
+                style="@style/DetailsGitHubIcons"
+                android:contentDescription="@string/details_watcher_icon"
                 android:src="@drawable/watcher"
                 app:layout_constraintEnd_toStartOf="@+id/star_icon"
                 app:layout_constraintStart_toStartOf="parent"
@@ -122,10 +90,7 @@
 
             <TextView
                 android:id="@+id/watcher_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_8"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/DetailsGitHubIconText"
                 app:layout_constraintEnd_toEndOf="@+id/watcher_icon"
                 app:layout_constraintStart_toStartOf="@+id/watcher_icon"
                 app:layout_constraintTop_toBottomOf="@+id/watcher_icon"
@@ -133,9 +98,8 @@
 
             <ImageView
                 android:id="@+id/star_icon"
-                android:layout_width="@dimen/dimen_40"
-                android:layout_height="@dimen/dimen_40"
-                android:scaleType="centerCrop"
+                style="@style/DetailsGitHubIcons"
+                android:contentDescription="@string/details_star_icon"
                 android:src="@drawable/star"
                 app:layout_constraintEnd_toEndOf="@+id/fork_icon"
                 app:layout_constraintStart_toStartOf="@+id/watcher_icon"
@@ -143,10 +107,7 @@
 
             <TextView
                 android:id="@+id/star_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_8"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/DetailsGitHubIconText"
                 app:layout_constraintEnd_toEndOf="@+id/star_icon"
                 app:layout_constraintStart_toStartOf="@+id/star_icon"
                 app:layout_constraintTop_toBottomOf="@+id/star_icon"
@@ -154,9 +115,8 @@
 
             <ImageView
                 android:id="@+id/fork_icon"
-                android:layout_width="@dimen/dimen_40"
-                android:layout_height="@dimen/dimen_40"
-                android:scaleType="centerCrop"
+                style="@style/DetailsGitHubIcons"
+                android:contentDescription="@string/details_fork_icon"
                 android:src="@drawable/fork"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/star_icon"
@@ -164,10 +124,7 @@
 
             <TextView
                 android:id="@+id/fork_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/dimen_8"
-                android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+                style="@style/DetailsGitHubIconText"
                 app:layout_constraintEnd_toEndOf="@+id/fork_icon"
                 app:layout_constraintStart_toStartOf="@+id/fork_icon"
                 app:layout_constraintTop_toBottomOf="@+id/fork_icon"
