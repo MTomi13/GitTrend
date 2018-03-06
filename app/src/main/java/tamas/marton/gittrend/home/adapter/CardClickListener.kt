@@ -6,5 +6,5 @@ import tamas.marton.gittrend.details.DetailsUIModel
 
 interface CardClickListener {
 
-    fun onCardClick(detailsUIModel: DetailsUIModel, view: View)
+    fun onCardClick(detailsUIModel: DetailsUIModel, view: View, position: Int)
 }

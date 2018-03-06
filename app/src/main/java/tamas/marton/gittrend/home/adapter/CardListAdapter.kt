@@ -1,13 +1,22 @@
 package tamas.marton.gittrend.home.adapter
 
+import android.graphics.drawable.Drawable
+import android.support.v4.app.ActivityCompat.startPostponedEnterTransition
 import android.support.v7.util.DiffUtil
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewTreeObserver
+import android.widget.ImageView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.load.DataSource
+import com.bumptech.glide.load.engine.GlideException
+import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.RequestOptions
+import com.bumptech.glide.request.target.Target
 import kotlinx.android.synthetic.main.home_list_item.view.*
 import tamas.marton.gittrend.R
+import tamas.marton.gittrend.home.HomeActivity
 import tamas.marton.gittrend.inflate
 
 
@@ -25,32 +34,51 @@ class CardListAdapter : RecyclerView.Adapter<CardListAdapter.CardViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CardViewHolder {
         val inflatedView = parent?.inflate(R.layout.home_list_item, false)
-        return CardViewHolder(inflatedView!!)
+        val cardViewHolder = CardViewHolder(inflatedView!!)
+        inflatedView.setOnClickListener {
+            cardClickListener.onCardClick(cards[cardViewHolder.adapterPosition].details, it, cardViewHolder.adapterPosition)
+        }
+        return cardViewHolder
     }
 
     override fun getItemCount(): Int = cards.size
 
     override fun onBindViewHolder(holder: CardViewHolder?, position: Int) {
-        holder?.bind(cards[position], cardClickListener)
+        holder?.bind(cards[position])
     }
 
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-
-        fun bind(item: CardUIModel, cardClickListener: CardClickListener) = with(itemView) {
+        fun bind(item: CardUIModel) = with(itemView) {
             with(item) {
                 name_text.text = name
                 full_name_text.text = fullName
                 val updatedString = String.format(resources.getString(R.string.update_format), lastUpdated)
                 updated_text.text = updatedString
-
                 Glide.with(context)
                         .load(avatarUrl)
-                        .apply(RequestOptions.circleCropTransform().placeholder(R.drawable.github_placeholder)).into(avatar_image)
+                        .listener(object : RequestListener<Drawable> {
+                            override fun onLoadFailed(e: GlideException?, model: Any?, target: Target<Drawable>?, isFirstResource: Boolean): Boolean {
+                                startPostponedEnterTransition(itemView.context as HomeActivity)
+                                return false
+                            }
 
-                setOnClickListener {
-                    cardClickListener.onCardClick(item.details, itemView)
-                }
+                            override fun onResourceReady(resource: Drawable?, model: Any?, target: Target<Drawable>?, dataSource: DataSource?, isFirstResource: Boolean): Boolean {
+                                scheduleStartPostponedTransition(avatar_image, itemView.context as HomeActivity)
+                                return false
+                            }
+                        })
+                        .apply(RequestOptions.circleCropTransform().placeholder(R.drawable.github_placeholder)).into(avatar_image)
             }
+        }
+
+        private fun scheduleStartPostponedTransition(imageView: ImageView, context: HomeActivity) {
+            imageView.viewTreeObserver.addOnPreDrawListener(object : ViewTreeObserver.OnPreDrawListener {
+                override fun onPreDraw(): Boolean {
+                    imageView.viewTreeObserver.removeOnPreDrawListener(this)
+                    startPostponedEnterTransition(context)
+                    return true
+                }
+            })
         }
     }
 }

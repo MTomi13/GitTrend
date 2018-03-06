@@ -6,6 +6,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Parcelable
 import android.support.v4.app.ActivityOptionsCompat
+import android.support.v4.app.SharedElementCallback
 import android.support.v7.widget.LinearLayoutManager
 import android.view.View
 import android.widget.ImageView
@@ -29,6 +30,7 @@ import javax.inject.Inject
 class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener {
 
     private val LAYOUT_MANAGER_STATE = "layout_manager_state"
+    private val CLICKED_POSITION = "clicked_position"
 
     @Inject
     lateinit var homePresenter: HomePresenter
@@ -41,6 +43,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
 
     private var homeViewModel: HomeViewModel? = null
     private var state: Parcelable? = null
+    private var clickedPosition: Int? = 0
 
     override fun getContentView(): Int = R.layout.activity_home
 
@@ -54,6 +57,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
 
         if (savedInstanceState != null) {
             state = savedInstanceState.getParcelable(LAYOUT_MANAGER_STATE)
+            clickedPosition = savedInstanceState.getInt(CLICKED_POSITION)
         }
         adapter.cardClickListener = this
         recyclerView.adapter = adapter
@@ -74,11 +78,14 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
                 presenter.getBestRepositories()
             }
         })
+        prepareTransitions()
+        postponeEnterTransition()
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelable(LAYOUT_MANAGER_STATE, linearLayoutManager.onSaveInstanceState())
+        outState.putInt(CLICKED_POSITION, clickedPosition!!)
     }
 
     override fun saveData(repositories: Repositories) {
@@ -108,11 +115,27 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
         }
     }
 
-    override fun onCardClick(detailsUIModel: DetailsUIModel, view: View) {
+    override fun onCardClick(detailsUIModel: DetailsUIModel, view: View, position: Int) {
+        clickedPosition = position
         val intent = Intent(this, DetailsActivity::class.java)
         intent.putExtra(DETAILS_INTENT, detailsUIModel)
         val sharedImage = view.findViewById<ImageView>(R.id.avatar_image)
         val options = ActivityOptionsCompat.makeSceneTransitionAnimation(this, sharedImage, getString(R.string.shared_element_key))
         startActivity(intent, options.toBundle())
+    }
+
+    private fun prepareTransitions() {
+        setExitSharedElementCallback(
+                object : SharedElementCallback() {
+                    override fun onMapSharedElements(names: List<String>?, sharedElements: MutableMap<String, View>?) {
+                        // Locate the ViewHolder for the clicked position.
+                        val selectedViewHolder = recyclerView.findViewHolderForAdapterPosition(clickedPosition!!)
+                        if (selectedViewHolder?.itemView == null) {
+                            return
+                        }
+                        // Map the first shared element name to the child ImageView.
+                        sharedElements!![names!![0]] = selectedViewHolder.itemView.findViewById(R.id.avatar_image)
+                    }
+                })
     }
 }
