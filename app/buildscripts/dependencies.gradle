@@ -20,6 +20,7 @@ dependencies {
     implementation rootProject.ext.libraries.gson
 
     //Test
+    androidTestImplementation rootProject.ext.testLibraries.testRunner
     testImplementation rootProject.ext.testLibraries.mockito
     testImplementation rootProject.ext.testLibraries.robolectric
     testImplementation rootProject.ext.testLibraries.robolectricSharowsMultidex
