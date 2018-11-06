@@ -32,9 +32,9 @@ class CardListAdapter : RecyclerView.Adapter<CardListAdapter.CardViewHolder>() {
 
     lateinit var cardClickListener: CardClickListener
 
-    override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): CardViewHolder {
-        val inflatedView = parent?.inflate(R.layout.home_list_item, false)
-        val cardViewHolder = CardViewHolder(inflatedView!!)
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CardViewHolder {
+        val inflatedView = parent.inflate(R.layout.home_list_item, false)
+        val cardViewHolder = CardViewHolder(inflatedView)
         inflatedView.setOnClickListener {
             cardClickListener.onCardClick(cards[cardViewHolder.adapterPosition].details, it, cardViewHolder.adapterPosition)
         }
@@ -43,8 +43,8 @@ class CardListAdapter : RecyclerView.Adapter<CardListAdapter.CardViewHolder>() {
 
     override fun getItemCount(): Int = cards.size
 
-    override fun onBindViewHolder(holder: CardViewHolder?, position: Int) {
-        holder?.bind(cards[position])
+    override fun onBindViewHolder(holder: CardViewHolder, position: Int) {
+        holder.bind(cards[position])
     }
 
     class CardViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
