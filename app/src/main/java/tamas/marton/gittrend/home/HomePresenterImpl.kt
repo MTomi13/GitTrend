@@ -1,29 +1,30 @@
 package tamas.marton.gittrend.home
 
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.map
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import tamas.marton.gittrend.api.EmptyResultException
 import tamas.marton.gittrend.api.model.Repositories
 import tamas.marton.gittrend.api.schedulers.DispatcherProvider
 import tamas.marton.gittrend.db.RepositoriesEntity
 import tamas.marton.gittrend.home.adapter.CardMapper
 import javax.inject.Inject
+import kotlin.coroutines.CoroutineContext
 
 
 class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInteractor,
                                             private val cardMapper: CardMapper,
                                             private val dispatcher: DispatcherProvider,
                                             private val homeView: HomeView)
-    : HomePresenter {
+    : HomePresenter, CoroutineScope {
 
     @Inject
     lateinit var compositeJob: Job
 
+    override val coroutineContext: CoroutineContext
+        get() = dispatcher.mainThread() + compositeJob
+
     override fun getBestRepositories() {
-        GlobalScope.launch(dispatcher.mainThread() + compositeJob) {
+        GlobalScope.launch(context = coroutineContext) {
             handleResponseState(UIStateModel.loading())
             try {
                 getRepositories()
@@ -33,7 +34,7 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
         }
     }
 
-    private suspend fun getRepositories() {
+    private suspend fun getRepositories() = coroutineScope {
         val result = withContext(dispatcher.backgroundThread()) {
             homeInteractor.getRepositories()
         }.map { repository ->
