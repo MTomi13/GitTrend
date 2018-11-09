@@ -17,6 +17,6 @@ class NoConnectionInterceptor(private val connectivityManager: ConnectivityManag
 
     private fun isConnected(): Boolean {
         val networkInfo = connectivityManager.activeNetworkInfo
-        return networkInfo != null && networkInfo.isConnectedOrConnecting
+        return networkInfo != null && networkInfo.isConnected
     }
 }
