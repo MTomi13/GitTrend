@@ -14,7 +14,7 @@ import tamas.marton.gittrend.api.EmptyResultException
 import tamas.marton.gittrend.api.model.Item
 import tamas.marton.gittrend.api.model.Owner
 import tamas.marton.gittrend.api.model.Repositories
-import tamas.marton.gittrend.api.schedulers.SchedulerProvider
+import tamas.marton.gittrend.api.schedulers.DispatcherProvider
 import tamas.marton.gittrend.db.RepositoriesEntity
 import tamas.marton.gittrend.home.adapter.CardMapper
 
@@ -34,12 +34,12 @@ class HomePresenterImplTest {
     @Mock
     lateinit var compositeDisposable: CompositeDisposable
     @Mock
-    lateinit var schedulerProvider: SchedulerProvider
+    lateinit var dispatcherProvider: DispatcherProvider
 
     @Before
     fun setup() {
         testScheduler = TestScheduler()
-        homePresenter = HomePresenterImpl(homeInteractor, cardMapper, schedulerProvider, homeView)
+        homePresenter = HomePresenterImpl(homeInteractor, cardMapper, dispatcherProvider, homeView)
         homePresenter.compositeDisposable = compositeDisposable
     }
 
@@ -53,8 +53,8 @@ class HomePresenterImplTest {
         val repositories = getRepositories()
         val observable = Observable.just(repositories)
         `when`(homeInteractor.getRepositories()).thenReturn(observable)
-        `when`(schedulerProvider.backgroundThread()).thenReturn(testScheduler)
-        `when`(schedulerProvider.mainThread()).thenReturn(testScheduler)
+        `when`(dispatcherProvider.backgroundThread()).thenReturn(testScheduler)
+        `when`(dispatcherProvider.mainThread()).thenReturn(testScheduler)
 
         homePresenter.getBestRepositories()
         testScheduler.triggerActions()
@@ -70,8 +70,8 @@ class HomePresenterImplTest {
     @Test
     fun testGetRepositoriesFailure() {
         `when`(homeInteractor.getRepositories()).thenReturn(Observable.error(IllegalArgumentException("Invalid Response")))
-        `when`(schedulerProvider.backgroundThread()).thenReturn(testScheduler)
-        `when`(schedulerProvider.mainThread()).thenReturn(testScheduler)
+        `when`(dispatcherProvider.backgroundThread()).thenReturn(testScheduler)
+        `when`(dispatcherProvider.mainThread()).thenReturn(testScheduler)
 
         homePresenter.getBestRepositories()
         testScheduler.triggerActions()
@@ -88,8 +88,8 @@ class HomePresenterImplTest {
     fun testGetRepositoriesEmpty() {
         val observable = Observable.just(Repositories(0, false, emptyList()))
         `when`(homeInteractor.getRepositories()).thenReturn(observable)
-        `when`(schedulerProvider.backgroundThread()).thenReturn(testScheduler)
-        `when`(schedulerProvider.mainThread()).thenReturn(testScheduler)
+        `when`(dispatcherProvider.backgroundThread()).thenReturn(testScheduler)
+        `when`(dispatcherProvider.mainThread()).thenReturn(testScheduler)
 
         homePresenter.getBestRepositories()
         testScheduler.triggerActions()

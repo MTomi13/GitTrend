@@ -31,6 +31,8 @@ dependencies {
 
     //kotlin
     implementation rootProject.ext.libraries.kotlin
+    implementation rootProject.ext.libraries.kotlinCoroutinesAndroid
+    implementation rootProject.ext.libraries.kotlinCoroutinesRx
 
     //dagger
     implementation rootProject.ext.libraries.dagger

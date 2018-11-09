@@ -5,23 +5,23 @@ import tamas.marton.gittrend.api.model.Repositories
 
 data class UIStateModel private constructor(
         private val inProgress: Boolean = false,
-        private val error: Throwable? = null,
+        private val exception: Exception? = null,
         private val repositories: Repositories? = null
 ) {
     companion object {
         fun loading() = UIStateModel(inProgress = true)
         fun success(repositories: Repositories) = UIStateModel(repositories = repositories)
-        fun error(error: Throwable) = UIStateModel(error = error)
+        fun error(error: Exception) = UIStateModel(exception = error)
     }
 
     fun isLoading() = inProgress
-    fun isError() = error != null
+    fun isError() = exception != null
     fun isSuccess() = repositories?.items?.isNotEmpty() ?: false && !isError()
-    fun isEmpty() = !inProgress && error == null && !isSuccess()
+    fun isEmpty() = !inProgress && exception == null && !isSuccess()
 
-    fun getError(): Throwable {
-        if (error != null) {
-            return error
+    fun getError(): java.lang.Exception {
+        if (exception != null) {
+            return exception
         }
         throw IllegalStateException("Error shouldn't be null")
     }

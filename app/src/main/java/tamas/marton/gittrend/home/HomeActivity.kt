@@ -23,7 +23,6 @@ import tamas.marton.gittrend.details.DetailsUIModel
 import tamas.marton.gittrend.home.adapter.CardClickListener
 import tamas.marton.gittrend.home.adapter.CardListAdapter
 import tamas.marton.gittrend.home.adapter.CardUIModel
-import tamas.marton.gittrend.ioThread
 import javax.inject.Inject
 
 
@@ -89,9 +88,7 @@ class HomeActivity : BaseActivity<HomePresenter>(), HomeView, CardClickListener 
     }
 
     override fun saveData(repositories: Repositories) {
-        ioThread {
-            homeViewModel?.addReposToDB(RepositoriesEntity(repositories))
-        }
+        homeViewModel?.addReposToDB(RepositoriesEntity(repositories))
     }
 
     override fun setList(list: List<CardUIModel>) {

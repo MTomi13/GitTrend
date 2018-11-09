@@ -1,9 +1,13 @@
 package tamas.marton.gittrend.home
 
-import io.reactivex.disposables.CompositeDisposable
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.channels.map
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import tamas.marton.gittrend.api.EmptyResultException
 import tamas.marton.gittrend.api.model.Repositories
-import tamas.marton.gittrend.api.schedulers.SchedulerProvider
+import tamas.marton.gittrend.api.schedulers.DispatcherProvider
 import tamas.marton.gittrend.db.RepositoriesEntity
 import tamas.marton.gittrend.home.adapter.CardMapper
 import javax.inject.Inject
@@ -11,36 +15,51 @@ import javax.inject.Inject
 
 class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInteractor,
                                             private val cardMapper: CardMapper,
-                                            private val scheduler: SchedulerProvider,
+                                            private val dispatcher: DispatcherProvider,
                                             private val homeView: HomeView)
     : HomePresenter {
 
     @Inject
-    lateinit var compositeDisposable: CompositeDisposable
+    lateinit var compositeJob: Job
 
     override fun getBestRepositories() {
-        compositeDisposable.add(homeInteractor.getRepositories()
-                .map { result -> UIStateModel.success(result) }
-                .onErrorReturn { exception -> UIStateModel.error(exception) }
-                .startWith(UIStateModel.loading())
-                .subscribeOn(scheduler.backgroundThread())
-                .observeOn(scheduler.mainThread())
-                .subscribe({ uiState ->
-                    when {
-                        uiState.isLoading() -> homeView.showLoading()
-                        uiState.isError() -> onGetRepositoriesFailure(uiState.getError())
-                        uiState.isSuccess() -> onGetRepositoriesSuccess(uiState.getRepositories())
-                        uiState.isEmpty() -> onGetRepositoriesEmpty()
-                        else -> IllegalArgumentException("Invalid Response")
-                    }
-                }))
+        GlobalScope.launch(dispatcher.mainThread() + compositeJob) {
+            handleResponseState(UIStateModel.loading())
+            try {
+                getRepositories()
+            } catch (exception: Exception) {
+                onGetRepositoriesFailure(exception)
+            }
+        }
+    }
+
+    private suspend fun getRepositories() {
+        val result = withContext(dispatcher.backgroundThread()) {
+            homeInteractor.getRepositories()
+        }.map { repository ->
+            UIStateModel.success(repository)
+        }
+
+        withContext(dispatcher.dbThread()) {
+            handleResponseState(result.receive())
+        }
+    }
+
+    private fun handleResponseState(uiState: UIStateModel) {
+        when {
+            uiState.isLoading() -> homeView.showLoading()
+            uiState.isError() -> onGetRepositoriesFailure(uiState.getError())
+            uiState.isSuccess() -> onGetRepositoriesSuccess(uiState.getRepositories())
+            uiState.isEmpty() -> onGetRepositoriesEmpty()
+            else -> IllegalArgumentException("Invalid Response")
+        }
     }
 
     private fun onGetRepositoriesSuccess(repositories: Repositories) {
         homeView.saveData(repositories)
     }
 
-    private fun onGetRepositoriesFailure(error: Throwable) {
+    private fun onGetRepositoriesFailure(error: Exception) {
         handleErrors()
         homeView.onError(error.message)
     }
@@ -63,8 +82,8 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
     }
 
     override fun unSubscribe() {
-        if (!compositeDisposable.isDisposed) {
-            compositeDisposable.clear()
+        if (!compositeJob.isCancelled) {
+            compositeJob.cancel()
         }
     }
 }

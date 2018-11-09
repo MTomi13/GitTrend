@@ -4,8 +4,8 @@ import android.arch.lifecycle.ViewModelProvider
 import android.support.v7.widget.LinearLayoutManager
 import dagger.Module
 import dagger.Provides
-import tamas.marton.gittrend.api.schedulers.SchedulerProvider
-import tamas.marton.gittrend.api.schedulers.SchedulerProviderImpl
+import tamas.marton.gittrend.api.schedulers.DispatcherProvider
+import tamas.marton.gittrend.api.schedulers.DispatcherProviderImpl
 import tamas.marton.gittrend.base.ViewModelFactory
 import tamas.marton.gittrend.db.RepositoriesDao
 import tamas.marton.gittrend.home.adapter.CardListAdapter
@@ -58,7 +58,7 @@ class HomeActivityModule {
     }
 
     @Provides
-    fun provideScheduler(): SchedulerProvider {
-        return SchedulerProviderImpl()
+    fun provideDispatcher(): DispatcherProvider {
+        return DispatcherProviderImpl()
     }
 }
