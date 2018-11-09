@@ -40,11 +40,9 @@ ext {
     daggerVersion = "2.16"
 
     //RX
-    rxAndroidVersion = "2.0.1"
     rxJavaVersion = "2.1.7"
 
     libraries = [
-            rxandroid               : "io.reactivex.rxjava2:rxandroid:${rxAndroidVersion}",
             androidSupport          : "com.android.support:support-v4:${androidSupportVersion}",
             androidSupportAnnotation: "com.android.support:support-annotations:${androidSupportVersion}",
             appCompat               : "com.android.support:appcompat-v7:${androidSupportVersion}",

@@ -42,7 +42,6 @@ dependencies {
 
     //Reactive Stuff
     implementation rootProject.ext.libraries.rxjava
-    implementation rootProject.ext.libraries.rxandroid
 
     //Glide
     implementation rootProject.ext.libraries.glide
