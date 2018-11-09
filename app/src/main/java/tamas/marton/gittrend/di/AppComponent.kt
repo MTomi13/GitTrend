@@ -16,6 +16,7 @@ interface AppComponent {
     interface Builder {
         @BindsInstance
         fun connectivityManager(connectivityManager: ConnectivityManager): Builder
+
         fun networkModule(networkModule: NetworkModule): Builder
         fun roomModule(roomModule: RoomModule): Builder
         fun build(): AppComponent
