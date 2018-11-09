@@ -1,7 +1,7 @@
 package tamas.marton.gittrend.home
 
-import android.arch.lifecycle.ViewModelProvider
-import android.support.v7.widget.LinearLayoutManager
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.Module
 import dagger.Provides
 import tamas.marton.gittrend.api.schedulers.SchedulerProvider

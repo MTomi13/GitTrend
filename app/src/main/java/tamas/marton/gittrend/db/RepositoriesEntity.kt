@@ -1,6 +1,6 @@
 package tamas.marton.gittrend.db
 
-import android.arch.persistence.room.*
+import androidx.room.*
 import tamas.marton.gittrend.api.model.Repositories
 
 

@@ -1,7 +1,7 @@
 package tamas.marton.gittrend.base
 
-import android.arch.lifecycle.ViewModel
-import android.arch.lifecycle.ViewModelProvider
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.ViewModelProvider
 import tamas.marton.gittrend.db.RepositoriesDao
 import tamas.marton.gittrend.home.HomeViewModel
 import javax.inject.Inject
