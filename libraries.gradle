@@ -7,8 +7,8 @@ ext {
     buildToolsVersion = "28.0.3"
 
     //Android
-    androidSupportVersion = "28.0.0"
-    androidConstraintLayoutVersion = "1.0.2"
+    androidSupportVersion = "1.0.0"
+    androidConstraintLayoutVersion = "1.1.2"
 
     //network
     retrofitVersion = "2.4.0"
@@ -22,11 +22,11 @@ ext {
     glideVersion = "4.6.1"
 
     //architecture components
-    architectureComponentsVersion = "1.1.0-alpha3"
-    lifeCycleVersion = "1.1.0"
+    architectureComponentsVersion = "2.0.0"
+    lifeCycleVersion = "2.0.0"
 
     //TestLibraries
-    androidTestRunnerVersion = "1.0.1"
+    androidTestRunnerVersion = "1.1.0"
     mockitoVersion = "2.12.0"
     junitVersion = "4.12"
     robolectricVersion = "3.6.1"
@@ -37,7 +37,7 @@ ext {
     coroutinesVersion = "1.0.0"
 
     //dagger
-    daggerVersion = "2.14.1"
+    daggerVersion = "2.16"
 
     //RX
     rxAndroidVersion = "2.0.1"
@@ -71,19 +71,19 @@ ext {
             rxjava                  : "io.reactivex.rxjava2:rxjava:${rxJavaVersion}",
             glide                   : "com.github.bumptech.glide:glide:${glideVersion}",
             glideCompiler           : "com.github.bumptech.glide:compiler:${glideVersion}",
-            room                    : "android.arch.persistence.room:runtime:${architectureComponentsVersion}",
-            roomCompiler            : "android.arch.persistence.room:compiler:${architectureComponentsVersion}",
-            lifecycleRuntime        : "android.arch.lifecycle:runtime:${lifeCycleVersion}",
-            lifecycleExtension      : "android.arch.lifecycle:extensions:${lifeCycleVersion}",
-            lifecycleCompiler       : "android.arch.lifecycle:compiler:${lifeCycleVersion}"
+            room                    : "androidx.room:room-runtime:${architectureComponentsVersion}",
+            roomCompiler            : "androidx.room:room-compiler:${architectureComponentsVersion}",
+            lifecycleRuntime        : "androidx.lifecycle:lifecycle-runtime:${lifeCycleVersion}",
+            lifecycleExtension      : "androidx.lifecycle:lifecycle-extensions:${lifeCycleVersion}",
+            lifecycleCompiler       : "androidx.lifecycle:lifecycle-compiler:${lifeCycleVersion}"
     ]
 
     testLibraries = [
-            testRunner                : "com.android.support.test:runner:${androidTestRunnerVersion}",
+            testRunner                : "androidx.test:runner:${androidTestRunnerVersion}",
             mockito                   : "org.mockito:mockito-core:${mockitoVersion}",
             robolectric               : "org.robolectric:robolectric:${robolectricVersion}",
             robolectricSharowsMultidex: "org.robolectric:shadows-multidex:${robolectricShadowMultidex}",
             junit                     : "junit:junit:${junitVersion}",
-            roomTesting               : "android.arch.persistence.room:testing:${architectureComponentsVersion}"
+            roomTesting               : "androidx.room:room-testing:${architectureComponentsVersion}"
     ]
 }

@@ -1,13 +1,13 @@
 package tamas.marton.gittrend.home.adapter
 
 import android.graphics.drawable.Drawable
-import android.support.v4.app.ActivityCompat.startPostponedEnterTransition
-import android.support.v7.util.DiffUtil
-import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewTreeObserver
 import android.widget.ImageView
+import androidx.core.app.ActivityCompat.startPostponedEnterTransition
+import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.GlideException

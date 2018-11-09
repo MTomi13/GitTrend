@@ -1,6 +1,6 @@
 package tamas.marton.gittrend.api.model
 
-import android.arch.persistence.room.Ignore
+import androidx.room.Ignore
 import com.google.gson.annotations.SerializedName
 
 

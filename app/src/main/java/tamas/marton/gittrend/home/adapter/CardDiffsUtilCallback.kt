@@ -1,6 +1,6 @@
 package tamas.marton.gittrend.home.adapter
 
-import android.support.v7.util.DiffUtil
+import androidx.recyclerview.widget.DiffUtil
 
 
 class CardDiffsUtilCallback(private val oldList: List<CardUIModel>, private val newList: List<CardUIModel>) : DiffUtil.Callback() {
