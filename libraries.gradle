@@ -1,5 +1,5 @@
 ext {
-    gradleBuildTools = "3.2.0"
+    gradleBuildTools = '3.4.0-alpha10'
 
     //android
     minSdkVersion = 21
@@ -11,8 +11,8 @@ ext {
     androidConstraintLayoutVersion = "1.1.2"
 
     //network
-    retrofitVersion = "2.4.0"
-    okhttpVersion = "3.11.0"
+    retrofitVersion = "2.5.0"
+    okhttpVersion = "3.12.1"
 
     //leakCanary
     leakCanaryVersion = "1.5.3"
@@ -33,8 +33,8 @@ ext {
     robolectricShadowMultidex = "3.6.1"
 
     //kotlin
-    kotlin_version = "1.3.0"
-    coroutinesVersion = "1.0.0"
+    kotlin_version = "1.3.11"
+    coroutinesVersion = "1.1.0"
 
     //dagger
     daggerVersion = "2.16"
