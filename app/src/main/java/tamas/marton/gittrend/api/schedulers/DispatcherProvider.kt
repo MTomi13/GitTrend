@@ -8,6 +8,4 @@ interface DispatcherProvider {
     fun mainThread(): CoroutineDispatcher
 
     fun backgroundThread(): CoroutineDispatcher
-
-    fun dbThread(): CoroutineDispatcher
 }

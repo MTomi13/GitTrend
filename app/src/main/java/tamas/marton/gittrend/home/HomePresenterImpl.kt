@@ -1,8 +1,8 @@
 package tamas.marton.gittrend.home
 
 import kotlinx.coroutines.*
-import kotlinx.coroutines.channels.map
 import tamas.marton.gittrend.api.EmptyResultException
+import tamas.marton.gittrend.api.RepositoriesFetchingException
 import tamas.marton.gittrend.api.model.Repositories
 import tamas.marton.gittrend.api.schedulers.DispatcherProvider
 import tamas.marton.gittrend.db.RepositoriesEntity
@@ -37,12 +37,14 @@ class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInte
     private suspend fun getRepositories() = coroutineScope {
         val result = withContext(dispatcher.backgroundThread()) {
             homeInteractor.getRepositories()
-        }.map { repository ->
-            UIStateModel.success(repository)
-        }
+        }.await()
 
-        withContext(dispatcher.dbThread()) {
-            handleResponseState(result.receive())
+        withContext(dispatcher.backgroundThread()) {
+            handleResponseState(if (result.isSuccessful) {
+                UIStateModel.success(result.body()!!)
+            } else {
+                UIStateModel.error(RepositoriesFetchingException("Couldn't retrieve repositories list ${result.code()} -> ${result.message()}"))
+            })
         }
     }
 

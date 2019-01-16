@@ -11,7 +11,7 @@ dependencies {
     //Network
     implementation rootProject.ext.libraries.retrofit
     implementation rootProject.ext.libraries.retrofitconverter
-    implementation rootProject.ext.libraries.retrofitRxAdapter
+    implementation rootProject.ext.libraries.retrofit2CoroutinesAdapter
     implementation rootProject.ext.libraries.okhttp
     implementation rootProject.ext.libraries.okhttplogginginterceptor
     implementation rootProject.ext.libraries.okhttpurlconnection
@@ -32,16 +32,12 @@ dependencies {
     //kotlin
     implementation rootProject.ext.libraries.kotlin
     implementation rootProject.ext.libraries.kotlinCoroutinesAndroid
-    implementation rootProject.ext.libraries.kotlinCoroutinesRx
 
     //dagger
     implementation rootProject.ext.libraries.dagger
     implementation rootProject.ext.libraries.daggerAndroidSupport
     kapt rootProject.ext.libraries.daggerCompiler
     kapt rootProject.ext.libraries.daggerProcessor
-
-    //Reactive Stuff
-    implementation rootProject.ext.libraries.rxjava
 
     //Glide
     implementation rootProject.ext.libraries.glide
