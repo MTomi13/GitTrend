@@ -14,11 +14,9 @@ import kotlin.coroutines.CoroutineContext
 class HomePresenterImpl @Inject constructor(private val homeInteractor: HomeInteractor,
                                             private val cardMapper: CardMapper,
                                             private val dispatcher: DispatcherProvider,
-                                            private val homeView: HomeView)
+                                            private val homeView: HomeView,
+                                            private val compositeJob: Job)
     : HomePresenter, CoroutineScope {
-
-    @Inject
-    lateinit var compositeJob: Job
 
     override val coroutineContext: CoroutineContext
         get() = dispatcher.mainThread() + compositeJob

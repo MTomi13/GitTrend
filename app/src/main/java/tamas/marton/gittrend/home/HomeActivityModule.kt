@@ -4,6 +4,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import dagger.Module
 import dagger.Provides
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.SupervisorJob
 import tamas.marton.gittrend.api.schedulers.DispatcherProvider
 import tamas.marton.gittrend.api.schedulers.DispatcherProviderImpl
 import tamas.marton.gittrend.base.ViewModelFactory
@@ -60,5 +62,10 @@ class HomeActivityModule {
     @Provides
     fun provideDispatcher(): DispatcherProvider {
         return DispatcherProviderImpl()
+    }
+
+    @Provides
+    fun provideJob(): Job {
+        return SupervisorJob()
     }
 }

@@ -4,7 +4,6 @@ import android.net.ConnectivityManager
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.CoroutineCallAdapterFactory
 import dagger.Module
 import dagger.Provides
-import kotlinx.coroutines.Job
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -52,9 +51,4 @@ class NetworkModule(private val connectivityManager: ConnectivityManager) {
     @Singleton
     @Provides
     fun apiService(retrofit: Retrofit): ApiService = retrofit.create(ApiService::class.java)
-
-    @Provides
-    fun getCompositeJob(): Job {
-        return Job()
-    }
 }
